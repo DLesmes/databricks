@@ -23,6 +23,7 @@ Use this file to capture key concepts, examples, and takeaways from the course.
 - [Class 2: What Databricks Is, What It Does, and How to Get Started](#class-2)
 - [Class 3: Centralized vs Distributed Data Architecture](#class-3)
 - [Class 4: Apache Hadoop vs Apache Spark](#class-4)
+- [Class 5: Compute in Databricks Free Edition](#class-5)
 
 <a id="class-1"></a>
 
@@ -394,5 +395,138 @@ For many modern workloads, Spark offers a better developer experience and much f
 ### Key takeaway 🌟
 
 Hadoop laid the foundation for distributed Big Data processing through `MapReduce` and `HDFS`, but Spark became the modern standard by making distributed computation faster, more flexible, and easier to use. With in-memory processing, multi-language APIs, strong cloud integration, and modules such as `Spark SQL`, `Streaming`, `MLlib`, and `GraphX`, Spark now dominates the Big Data ecosystem and serves as a core engine behind platforms like Databricks. 🔥
+
+[Back to Course Index](#course-index)
+
+<a id="class-5"></a>
+
+## Class 5: Compute in Databricks Free Edition ☁️
+
+### Why does compute matter in Databricks? 🖥️
+
+Before running notebooks, practical labs, or Delta Lake workflows, you need active compute resources. In distributed environments, compute is what provides the RAM and CPU needed to execute Spark jobs, SQL queries, transformations, and experiments.
+
+In older Databricks training materials, this usually meant creating a classic cluster manually from the `Compute` section. That was the normal workflow in the former Community Edition. Today, however, the interface and experience have changed significantly in `Databricks Free Edition`. 🚀
+
+### Important UI update: Community Edition vs Free Edition 🔄
+
+The old `Community Edition` model has been replaced by `Free Edition`, and with it the compute experience changed too.
+
+The most important difference is this:
+
+- You no longer create the classic cluster manually from `Compute` the way many older tutorials show.
+- Free Edition uses managed `serverless` compute for many notebook workflows.
+- Compute starts automatically when needed instead of asking you to build the cluster node by node.
+
+That is why, in the current interface, `Compute` may show options such as:
+
+- `SQL warehouse`
+- `Vector search`
+- `App`
+
+So if a course says, "Go to `Compute` and create a cluster manually," that instruction is now outdated for Free Edition and should be adapted to the serverless workflow. ✅
+
+### What should you use instead of the old classic cluster? 🧭
+
+It depends on the type of activity you are doing in the course.
+
+#### For notebooks with Python, PySpark, Scala, or SQL 📓
+
+The modern equivalent of the old Community Edition cluster is:
+
+👉 Create a notebook and attach `serverless` or `all-purpose` compute from inside the notebook.
+
+Typical flow:
+
+1. Go to `Workspace`.
+2. Click `New` or the `+` button.
+3. Create a `Notebook`.
+4. Choose the language you want to use, such as `Python` or `SQL`.
+5. At the top of the notebook, look for something like `No compute attached` or `Attach compute`.
+6. Select the available `serverless` or `all-purpose` compute option.
+7. Run your first cell and Databricks will automatically start the managed compute for you. ⚡
+
+This is the real replacement for the old manually created cluster in beginner and fundamentals courses.
+
+#### For SQL-only work 🧾
+
+If the course section is focused only on SQL queries, dashboards, or the SQL editor, then the correct option is:
+
+👉 `SQL warehouse`
+
+Typical flow:
+
+1. Go to `Compute`.
+2. Create a new `SQL warehouse`.
+3. Leave the default options unless the course requires something specific.
+4. Open the SQL editor and choose that warehouse to run your queries.
+
+In Free Edition, the SQL warehouse experience is also simplified and quota-limited, so the goal is usually learning and experimentation rather than heavy production-scale execution. 📊
+
+### Why does the platform work this way now? 🤔
+
+Databricks Free Edition is designed to reduce infrastructure management for learners. Instead of asking beginners to configure cluster sizes, runtimes, and scaling settings manually, Databricks now abstracts much of that complexity away through serverless compute.
+
+This means:
+
+- Less setup friction 🙌
+- Faster time to first notebook 🚀
+- Fewer infrastructure choices to misconfigure 🛡️
+- A more guided learning experience for new users 🎓
+
+For fundamentals training, this is usually a good thing because it lets you focus on Spark, SQL, and Delta Lake concepts instead of low-level cluster administration.
+
+### Can you still choose runtime versions manually? 🧩
+
+In older workflows, when creating a cluster manually, you had to choose a runtime version and it was important to note:
+
+- The `Spark` version
+- The `Scala` version
+
+That information was especially useful when installing external libraries and avoiding compatibility problems.
+
+In the modern Free Edition experience, you often do **not** choose the runtime manually the same way as before because the compute is managed for you. Still, the compatibility idea remains important. If you need to install libraries or debug version-specific behavior, you should inspect the current runtime environment from the notebook instead of assuming it matches an older course screenshot. 🔍
+
+### What are the practical limitations of Free Edition? 🚧
+
+Free Edition is excellent for learning, but it comes with important restrictions compared to paid workspaces:
+
+- Limited quotas for compute and storage resources
+- Reduced control over runtime and advanced cluster configuration
+- Limited scalability compared with paid environments
+- Simpler management experience focused on notebooks and lightweight experimentation
+- Some features are exposed differently through managed serverless interfaces
+
+In short, Free Edition is ideal for labs, small projects, and learning flows, but it is not meant to replicate the full flexibility of enterprise Databricks environments. 🧪
+
+### What happened to the old cluster management actions? 🛠️
+
+In the classic interface, once a cluster was created you could inspect and manage it through actions such as:
+
+- Stop
+- Restart
+- Delete
+- Review logs and events
+- Install libraries
+- Open the Spark UI
+
+In modern Free Edition, some of these concepts still exist, but they are surfaced differently because the platform manages more of the compute lifecycle on your behalf. Instead of spending time configuring and administering a classic cluster, you mostly work directly from the notebook or SQL workflow. 🪄
+
+### What if a course still teaches the old interface? 📼
+
+Many older lessons still describe this flow:
+
+`Compute` → `Create compute` → choose runtime → create cluster
+
+If you see that in the course, translate it to the modern workflow like this:
+
+- Old cluster-based notebook lesson → create a notebook and attach serverless compute
+- Old SQL lesson → create and use a SQL warehouse
+
+This small mental mapping will save you time and prevent confusion while following older Big Data courses on a newer Databricks interface. 💡
+
+### Key takeaway 🌟
+
+The old Databricks Community Edition taught users to manually create a classic cluster from the `Compute` panel. In today's `Free Edition`, that workflow has largely been replaced by managed `serverless` compute that starts automatically from notebooks, plus `SQL warehouse` for SQL-only tasks. The concept of compute is still essential, but the user experience is now simpler, more guided, and much more focused on learning instead of infrastructure administration. 🚀
 
 [Back to Course Index](#course-index)
