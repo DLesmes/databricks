@@ -25,6 +25,7 @@ Use this file to capture key concepts, examples, and takeaways from the course.
 - [Class 4: Apache Hadoop vs Apache Spark](#class-4)
 - [Class 5: Compute in Databricks Free Edition](#class-5)
 - [Class 6: DBFS and Modern File Management](#class-6)
+- [Class 7: Transformations and Actions in Spark](#class-7)
 
 <a id="class-1"></a>
 
@@ -678,5 +679,216 @@ That keeps your workflow aligned with how Databricks is evolving today. 🌱
 ### Key takeaway 🌈
 
 DBFS is still an important concept because it helps explain how Databricks manages files and storage internally, but modern Databricks workflows should avoid depending on deprecated DBFS-root practices. In `Free Edition`, the most practical path is to organize your work in `Workspace`, upload files through the current interface, and use notebooks or the assistant/chat experience to turn those files into queryable tables. This approach is cleaner, more modern, and much easier for learning. 🚀
+
+[Back to Course Index](#course-index)
+
+<a id="class-7"></a>
+
+## Class 7: Transformations and Actions in Spark 🔄
+
+### What are transformations in Apache Spark? 🧠
+
+In Apache Spark, transformations are operations that create a new `RDD`, `DataFrame`, or `Dataset` from an existing one. They are the foundation of how data is manipulated in Spark, because instead of modifying a dataset in place, Spark creates a new logical result from the previous step.
+
+Typical examples include:
+
+- `map`
+- `filter`
+- `flatMap`
+- `distinct`
+- `join`
+- `reduceByKey`
+
+These operations define *how* the data should change, but they do not immediately execute the computation. That design is one of the reasons Spark can optimize distributed workloads so well. ⚡
+
+### What are native transformations and UDFs? 🛠️
+
+Spark provides two broad ways to transform data:
+
+#### Native transformations ✅
+
+These are built-in Spark operations such as `filter`, `map`, and `flatMap`. They are highly optimized by the Spark engine and are usually the best first choice when solving a data-processing problem.
+
+Why they are preferred:
+
+- Better performance 🚀
+- Better integration with Spark's optimizer 🧩
+- Easier distributed execution across partitions 🌐
+
+#### User Defined Functions (`UDFs`) ✍️
+
+`UDFs` are custom functions written by the user when built-in Spark functions are not enough for a specific transformation.
+
+They are useful because they add flexibility, but they should be used carefully because they can be less efficient than native Spark functions.
+
+Best practice:
+
+- Prefer native Spark transformations whenever possible
+- Use `UDFs` only when the native API cannot express the required logic
+
+This is an important performance habit for real-world Spark work. 💡
+
+### What is Lazy Evaluation in Spark? 😴
+
+One of Spark's most important ideas is `Lazy Evaluation`. This means Spark does **not** execute transformations as soon as you write them. Instead, it records them and builds an execution plan.
+
+Execution happens only when an action is called.
+
+This gives Spark several advantages:
+
+- It can optimize the full pipeline before running it 🔍
+- It avoids unnecessary work 🧹
+- It can reduce data movement and resource consumption 📉
+
+So if you chain multiple transformations like `filter`, `map`, and `flatMap`, Spark waits until an action is requested before actually computing the result.
+
+### What are actions in Spark? ▶️
+
+Actions are the operations that trigger execution of the transformations accumulated so far. Unlike transformations, actions return a final result or produce a side effect.
+
+Common actions include:
+
+- `collect`
+- `count`
+- `take`
+- `reduce`
+- `foreach`
+- `saveAsTextFile`
+
+Once an action is invoked, Spark executes the logical plan, runs the required stages, and uses cluster resources such as memory, CPU, disk, and network traffic as needed.
+
+That is why actions should be used carefully: they are the point where Spark actually performs the work. ⚙️
+
+### How do transformations and actions work together? 🔗
+
+Spark workflows usually follow this pattern:
+
+1. Start with an existing dataset.
+2. Apply one or more transformations.
+3. Trigger execution with an action.
+
+For example:
+
+- `filter` keeps only the needed records
+- `map` transforms each value
+- `flatMap` expands each input into zero, one, or many outputs
+- `collect` finally executes the plan and returns the result
+
+This separation is one of Spark's biggest design strengths because it lets you define the logic first and execute it only when needed. ✨
+
+### Why is RAM so important in Spark? 🧮
+
+Spark is designed to take strong advantage of memory. Many of its performance benefits come from processing data in RAM instead of relying mostly on disk, as older frameworks often did.
+
+This matters because:
+
+- Faster memory access improves execution speed ⚡
+- Repeated operations can be much more efficient if data is cached 📌
+- Poor memory usage can hurt cluster stability and performance 🚧
+
+Understanding when transformations are evaluated and when actions trigger execution helps you use Spark memory more effectively.
+
+### Additional context: what are RDDs and why do they matter? 📚
+
+`RDD` stands for `Resilient Distributed Dataset`, one of the core concepts in Spark. An RDD is an immutable, distributed collection of elements that can be processed in parallel across a cluster.
+
+Important RDD characteristics include:
+
+- Immutability 🧱: Once created, an RDD is not modified directly
+- Partitioning 🌐: Data is split into partitions that can run in parallel
+- Fault tolerance 🛡️: Lost partitions can be rebuilt from lineage
+- Persistence and caching 📦: Data can be stored in memory or disk for reuse
+
+Although many modern Spark workflows use `DataFrames` more often than raw `RDDs`, understanding RDDs helps explain how transformations, lineage, and distributed execution work underneath the hood.
+
+### Narrow vs Wide transformations 📏
+
+Spark transformations are commonly classified into two categories: `narrow` and `wide`. This distinction is essential for understanding performance.
+
+#### Narrow transformations 🟢
+
+In a narrow transformation, each output partition depends on only one input partition, or a very small number of them. Spark does not need to reshuffle data broadly across the cluster.
+
+Common examples:
+
+- `map`
+- `filter`
+- `flatMap`
+- `sample`
+
+Why they are efficient:
+
+- Data stays mostly local to each partition 📍
+- Minimal network traffic 🌐
+- Faster execution in many cases ⚡
+- Better support for pipelining across stages 🔄
+
+#### Wide transformations 🔴
+
+In a wide transformation, output partitions may depend on multiple input partitions. That means Spark often needs to reshuffle data across the cluster, which is known as a `shuffle`.
+
+Common examples:
+
+- `groupByKey`
+- `reduceByKey`
+- `join`
+- `repartition`
+
+Why they are more expensive:
+
+- They require data redistribution across partitions 🚚
+- They increase network I/O 🌐
+- They may introduce a new stage in execution 🏗️
+- They can be slower than narrow transformations ⏳
+
+### Key differences between narrow and wide transformations 🆚
+
+- Data movement 📦: Narrow transformations usually avoid shuffle, while wide transformations require data to move across partitions.
+- Performance ⚡: Narrow transformations are generally faster because they minimize network overhead.
+- Dependencies 🔗: Narrow transformations map input partitions to one output partition; wide transformations often combine data from multiple partitions.
+- Pipelining 🔄: Narrow transformations can often be pipelined more easily, while wide transformations frequently break execution into additional stages.
+
+Spark tries to optimize execution plans to reduce unnecessary shuffle and make the most of narrow dependencies whenever possible.
+
+### Impact on performance 📈
+
+The images and notes for this class emphasize a very practical rule:
+
+- Prefer narrow transformations whenever possible because they minimize data movement and network traffic ✅
+- Use wide transformations when the business logic really requires reshuffling data, such as aggregations or joins ⚠️
+
+This directly affects:
+
+- Speed
+- Cluster resource usage
+- Scalability
+- Cost in cloud environments
+
+The better you understand narrow and wide behavior, the better you can design efficient Spark jobs. 🚀
+
+### Practical examples of common transformations 🧪
+
+- `filter(func)` keeps only the rows or elements that satisfy a condition
+- `map(func)` transforms each element into exactly one output element
+- `flatMap(func)` can transform one input element into multiple output elements
+- `distinct()` removes duplicates
+- `join()` combines datasets by a shared key
+- `reduceByKey(func)` aggregates values by key in a distributed way
+
+These examples appear simple, but they represent the building blocks of many production-grade data pipelines.
+
+### Recommended habits when working with transformations and actions 🧭
+
+- Prefer built-in Spark functions over `UDFs` whenever possible
+- Be intentional with actions because they trigger execution
+- Watch out for operations that cause shuffle
+- Cache or persist reused datasets when it makes sense
+- Understand the lineage of your transformations to reason about recomputation and fault tolerance
+
+These habits can make a huge difference when moving from small exercises to large real-world jobs. 🌟
+
+### Key takeaway 🌈
+
+Transformations and actions are the core building blocks of Spark processing. Transformations define how data should change, while actions trigger the actual execution. Because Spark uses lazy evaluation, it can optimize the full computation plan before running it. On top of that, understanding the difference between `narrow` and `wide` transformations is essential for performance, since narrow operations keep work local while wide operations often require costly shuffle across the cluster. Mastering these concepts is a major step toward writing efficient Spark applications. 🚀
 
 [Back to Course Index](#course-index)
