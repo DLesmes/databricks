@@ -22,6 +22,7 @@ Use this file to capture key concepts, examples, and takeaways from the course.
 - [Class 1: What Is Databricks and Why Does It Matter?](#class-1)
 - [Class 2: What Databricks Is, What It Does, and How to Get Started](#class-2)
 - [Class 3: Centralized vs Distributed Data Architecture](#class-3)
+- [Class 4: Apache Hadoop vs Apache Spark](#class-4)
 
 <a id="class-1"></a>
 
@@ -263,5 +264,135 @@ Without distributed architecture, many of these workloads would be too slow, too
 ### Key takeaway 🌟
 
 Centralized architectures are simple but limited, especially when data grows quickly. Distributed architectures solve these limitations by splitting the workload across a cluster, improving speed, scalability, and fault tolerance. Databricks builds on this model by combining distributed compute, integrated storage, and powerful tools like Spark, Delta Lake, MLflow, and Unity Catalog into one modern platform for Big Data and AI. 🚀
+
+[Back to Course Index](#course-index)
+
+<a id="class-4"></a>
+
+## Class 4: Apache Hadoop vs Apache Spark 🔥
+
+### Why do distributed processing engines matter so much? 🌍
+
+Understanding distributed processing engines is essential for anyone working with large-scale data. These engines make it possible to split massive workloads across many machines, which improves speed, resilience, and scalability.
+
+In the Big Data world, Apache Hadoop was the first major breakthrough, while Apache Spark became the modern standard thanks to its higher speed, broader API support, and more flexible processing model. Together, they explain much of how modern data platforms evolved. 🚀
+
+### What is Apache Hadoop? 🐘
+
+Apache Hadoop is an open-source software framework created to process and store large datasets in a distributed way. It was one of the earliest foundational technologies in Big Data and introduced a practical way to work with massive data volumes reliably across clusters.
+
+Its architecture is usually explained through two major layers:
+
+- Processing layer ⚙️: Based on the `MapReduce` algorithm, traditionally associated with Java-based execution.
+- Storage layer 💾: Based on `HDFS` (`Hadoop Distributed File System`), a distributed file system designed for large-scale data storage.
+
+Hadoop was revolutionary because it enabled scalable and fault-tolerant data processing at a time when such capabilities were much harder to achieve. However, its disk-heavy execution model makes it much slower for many modern analytical workloads. 🐢
+
+### Why is Apache Spark considered the evolution of Hadoop? ⚡
+
+Apache Spark is a distributed data processing and analytics framework originally developed in Scala. Its main objective is simple but powerful: execute data workloads as fast as possible.
+
+Spark is often seen as the natural evolution of Hadoop because it improves the user and performance experience in several major ways:
+
+- In-memory processing 🧠: Spark processes data heavily in RAM instead of relying primarily on disk, which makes many workloads dramatically faster.
+- Multiple programming APIs 💻: Spark supports Python, Scala, SQL, R, and Java, making it accessible to different kinds of data professionals.
+- Scalability and fault tolerance 🛡️: Spark keeps the distributed and resilient mindset that made Hadoop important.
+- Hadoop interoperability 🔗: Spark can work with parts of the Hadoop ecosystem instead of replacing every component outright.
+- Real-time processing ⏱️: Spark includes streaming capabilities, which are highly valuable in Big Data environments.
+
+Because of this, Spark became the preferred engine for many modern use cases in analytics, engineering, and machine learning. ✨
+
+### Core Spark characteristics 🧩
+
+Spark stands out because it combines speed, flexibility, and a rich ecosystem:
+
+- Fast execution through memory-based processing 🚀
+- Support for multiple APIs and languages, including Java, Python, Scala, SQL, and R 🛠️
+- Strong distributed execution across cluster nodes 🌐
+- Fault-tolerant design for production data workloads ✅
+- Compatibility with cloud environments such as AWS, Azure, and Google Cloud ☁️
+- Support for batch, streaming, analytics, and machine learning workloads in one platform 🤖
+
+This versatility is one of the biggest reasons Spark dominates the modern Big Data ecosystem. 👑
+
+### What are the main components of Spark? 🏗️
+
+All major Spark capabilities are built on top of `Spark Core`, which is the foundational layer responsible for distributed task execution, fault tolerance, and low-level cluster operations.
+
+On top of Spark Core, Spark organizes its functionality into four major components:
+
+#### Spark SQL 🧾
+
+Spark SQL allows you to query and transform structured data using SQL syntax, DataFrames, and related abstractions. It is one of the most important Spark modules in real-world jobs because it connects data engineering and analytics in a very practical way.
+
+It is especially valuable because:
+
+- It lets teams use familiar SQL patterns directly inside Spark
+- It works with optimized tabular abstractions such as DataFrames
+- It can interact with distributed structures like `RDDs`
+
+#### Spark Streaming 🌊
+
+Spark Streaming enables real-time or near-real-time data processing. This is critical for scenarios where data arrives continuously and must be processed quickly, such as logs, IoT data, events, or operational dashboards.
+
+#### MLlib 🤖
+
+`MLlib` is Spark's distributed machine learning library. It allows teams to train, evaluate, and operationalize machine learning models across a cluster instead of relying on a single machine.
+
+This makes it useful for:
+
+- Large-scale model training
+- Distributed feature processing
+- Production-oriented ML workflows
+
+#### GraphX 🕸️
+
+`GraphX` is the Spark component focused on graph processing and graph algorithms. It is designed for use cases where relationships between entities are central, such as network analysis, recommendation systems, and dependency mapping.
+
+### Which Spark topics are most worth focusing on? 🎯
+
+From a career perspective, two areas are especially valuable:
+
+- Spark SQL 📊: Highly demanded because SQL remains central in analytics and data engineering roles.
+- MLlib 🧠: Important for applying machine learning at scale in distributed environments.
+
+These two modules often provide the most immediate practical value for professionals working in modern data teams.
+
+### What data structures does Spark use? 📚
+
+Spark includes several important data abstractions:
+
+- `RDD` (`Resilient Distributed Dataset`) 🧱: The foundational distributed data structure in Spark, designed for fault-tolerant parallel processing.
+- `DataFrame` 🗂️: A structured, tabular abstraction optimized for query execution and analytics.
+- `Dataset` 🧬: A typed abstraction that extends DataFrame ideas with stronger typing and optimization benefits, especially common in Scala and Java workflows.
+
+These abstractions help Spark balance developer productivity with large-scale distributed performance.
+
+### How does Spark manage cluster resources? 🧭
+
+Outside platforms like Databricks, Spark can rely on resource management layers to coordinate execution across a cluster. Common options include:
+
+- `YARN`
+- `Mesos`
+- `Spark Standalone Cluster Manager`
+
+These tools help orchestrate compute resources and task scheduling so workloads run efficiently across nodes.
+
+In Databricks, much of this complexity is abstracted away, which is one of the reasons the platform feels easier to use than managing raw distributed infrastructure manually. 🙌
+
+### Spark vs Hadoop: what are the key differences? 🥊
+
+The comparison between Spark and Hadoop can be summarized in a few major dimensions:
+
+- Speed ⚡: Spark processes heavily in memory, while Hadoop depends much more on disk-based execution through MapReduce.
+- Language support 💬: Spark supports Java, Python, Scala, SQL, and R. Hadoop is much more closely associated with Java-centric workflows.
+- Flexibility 🧰: Spark supports analytics, SQL, streaming, and machine learning in one ecosystem.
+- Cloud integration ☁️: Spark integrates broadly with cloud environments such as AWS, Azure, and Google Cloud, while traditional Hadoop deployments are usually less cloud-friendly.
+
+For many modern workloads, Spark offers a better developer experience and much faster execution times.
+
+### Key takeaway 🌟
+
+Hadoop laid the foundation for distributed Big Data processing through `MapReduce` and `HDFS`, but Spark became the modern standard by making distributed computation faster, more flexible, and easier to use. With in-memory processing, multi-language APIs, strong cloud integration, and modules such as `Spark SQL`, `Streaming`, `MLlib`, and `GraphX`, Spark now dominates the Big Data ecosystem and serves as a core engine behind platforms like Databricks. 🔥
 
 [Back to Course Index](#course-index)
