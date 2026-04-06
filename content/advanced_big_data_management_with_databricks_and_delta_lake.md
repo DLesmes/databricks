@@ -24,6 +24,7 @@ Use this file to capture key concepts, examples, and takeaways from the course.
 - [Class 3: Centralized vs Distributed Data Architecture](#class-3)
 - [Class 4: Apache Hadoop vs Apache Spark](#class-4)
 - [Class 5: Compute in Databricks Free Edition](#class-5)
+- [Class 6: DBFS and Modern File Management](#class-6)
 
 <a id="class-1"></a>
 
@@ -528,5 +529,154 @@ This small mental mapping will save you time and prevent confusion while followi
 ### Key takeaway 🌟
 
 The old Databricks Community Edition taught users to manually create a classic cluster from the `Compute` panel. In today's `Free Edition`, that workflow has largely been replaced by managed `serverless` compute that starts automatically from notebooks, plus `SQL warehouse` for SQL-only tasks. The concept of compute is still essential, but the user experience is now simpler, more guided, and much more focused on learning instead of infrastructure administration. 🚀
+
+[Back to Course Index](#course-index)
+
+<a id="class-6"></a>
+
+## Class 6: DBFS and Modern File Management 📁
+
+### What is DBFS? 🧠
+
+`DBFS` stands for `Databricks File System`. Traditionally, it has been described as a managed storage layer inside Databricks that helps users organize files, notebooks, and data assets in a way that feels simple and accessible.
+
+Conceptually, DBFS is useful because it helps explain how Databricks works with files in a platform-native way. It gives users a mental model for:
+
+- Storing files used in notebooks 📄
+- Organizing data for experiments and analysis 🗂️
+- Referencing file paths when loading data into Spark 🔗
+
+Even so, it is important to understand the modern product direction: Databricks now recommends newer storage patterns instead of relying on `DBFS root` and old-style `mounts`. ⚠️
+
+### What is the modern recommendation instead of old DBFS-root workflows? 🌟
+
+For current Databricks usage, especially in learning environments, the preferred patterns are:
+
+- `Unity Catalog Volumes` for governed file storage 🔐
+- `External locations` for cloud-native storage integration ☁️
+- `Workspace files` for simple file-based learning workflows in Free Edition 📘
+
+In practice, if you are using `Databricks Free Edition`, `workspace files` are usually the easiest and most practical choice.
+
+So the key idea is:
+
+- Learn the concept of DBFS because many courses and examples still mention it
+- Use modern file storage options when actually working in the updated interface ✅
+
+### How do you organize folders and notebooks in Databricks today? 📚
+
+To work comfortably in Databricks, you still need a clean workspace structure. A good beginner workflow looks like this:
+
+1. Open `Workspace`.
+2. Create a folder for your course or project.
+3. Create a notebook inside that folder.
+4. Choose the language you want to use, such as `Python`, `SQL`, `Scala`, or `R`.
+5. Attach the available managed compute from the notebook when needed.
+
+This gives you a structured place for:
+
+- Course notebooks
+- Uploaded sample files
+- Table creation experiments
+- Data exploration exercises
+
+Keeping notebooks and data assets logically grouped makes the learning experience much easier. 🧭
+
+### How should you upload data in the current interface? ⬆️
+
+Instead of following older instructions that tell you to upload data directly into deprecated DBFS-root workflows, use the current file and table-oriented experience in Databricks.
+
+The modern approach is usually:
+
+1. Open your workspace, notebook flow, or data import screen.
+2. Upload your file using the current Databricks upload option.
+3. Let Databricks store it in the supported location exposed by the interface.
+4. Copy or reuse the path shown by Databricks when you need to reference the file.
+
+Common file types include:
+
+- `CSV`
+- `JSON`
+- `Parquet`
+- Other structured or semi-structured formats
+
+The important idea is not to memorize an outdated DBFS-root upload path, but to understand that Databricks gives you a managed place to upload files and then work with them through notebooks, SQL, or the catalog experience. 📦
+
+### How can you create a table from uploaded data? 🏗️
+
+One of the most useful beginner workflows in Databricks is turning an uploaded file into a table. The platform can help you do this through the UI and through AI-assisted experiences.
+
+A simple modern workflow is:
+
+1. Upload a file.
+2. Open the file or data import flow from Databricks.
+3. Review the detected format and schema.
+4. Adjust options such as delimiter, column names, and data types if needed.
+5. Create a table from the uploaded dataset.
+
+During this process, Databricks may help you:
+
+- Preview the data 👀
+- Infer data types automatically 🔍
+- Suggest parsing options ⚙️
+- Generate code or notebook steps for loading the data 🤖
+
+This is much more aligned with the modern learning experience than manually managing raw storage paths from older course screenshots.
+
+### How can the chat or assistant interface help? 💬
+
+One of the easiest ways to work faster is to use the built-in chat or assistant experience to help generate the code needed to read a file and create a table.
+
+For example, you can ask the assistant something like:
+
+- `Read this uploaded CSV file and create a table called sales_raw.`
+- `Help me infer the schema for this JSON file and load it into a table.`
+- `Generate PySpark code to read this file path and register a table for analysis.`
+
+This is especially helpful because the assistant can:
+
+- Generate Spark or SQL code for you ⚡
+- Suggest the right file-reading options 🧩
+- Help create temporary views or persisted tables 🏷️
+- Reduce errors when working with delimiters, headers, or schema inference ✅
+
+For learning, this is one of the best ways to move from "I uploaded a file" to "I created a table and can query it" quickly.
+
+### What kinds of configuration should you pay attention to? 🛠️
+
+When loading data into a table, several settings still matter a lot:
+
+- File format, such as `CSV`, `JSON`, or `Parquet`
+- Delimiter and header options for CSV files
+- Column names
+- Data types, such as `string`, `integer`, `double`, or `timestamp`
+- Whether you want a quick exploratory table or a cleaner production-style structure
+
+Before finalizing the table, it is always a good idea to:
+
+- Preview the data
+- Check whether the schema looks correct
+- Rename confusing columns
+- Fix incorrect type inference if needed
+
+These small validation steps help prevent downstream analysis problems. 🔍
+
+### What about the DBFS File Browser? 👀
+
+The visual `DBFS File Browser` can only be enabled by a workspace administrator. When available, it can make file navigation easier from the sidebar.
+
+However, because `DBFS root` and `mounts` are now considered deprecated patterns, the browser should be understood as a legacy compatibility feature rather than the default workflow for new projects.
+
+For modern learning and practical use, it is better to focus on:
+
+- `Workspace files`
+- Catalog-driven table creation
+- Governed storage patterns such as `Unity Catalog Volumes`
+
+That keeps your workflow aligned with how Databricks is evolving today. 🌱
+
+### Key takeaway 🌈
+
+DBFS is still an important concept because it helps explain how Databricks manages files and storage internally, but modern Databricks workflows should avoid depending on deprecated DBFS-root practices. In `Free Edition`, the most practical path is to organize your work in `Workspace`, upload files through the current interface, and use notebooks or the assistant/chat experience to turn those files into queryable tables. This approach is cleaner, more modern, and much easier for learning. 🚀
 
 [Back to Course Index](#course-index)
