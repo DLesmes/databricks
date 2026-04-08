@@ -14,3 +14,5 @@ Databricks knowledge and course resources.
 4. [What Is a Big Data Architecture?](https://drive.google.com/file/d/1-e43pi_2NJ-yyTBsNiiVf1JZ_DXO5U7q/view)
 5. [What Is Apache Spark?](https://cloud.google.com/learn/what-is-apache-spark?hl=es)
 6. [Databricks Free Edition Compute Walkthrough](https://www.youtube.com/watch?v=fNQRQkx1SIQ)
+7. [Transformations and Actions in Spark](https://keepcoding.io/blog/transformaciones-y-acciones-en-spark/)
+8. [What Are RDDs or Resilient Distributed Datasets?](https://keepcoding.io/blog/rdd-resilient-distributed-datasets/)

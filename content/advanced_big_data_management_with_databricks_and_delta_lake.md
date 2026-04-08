@@ -26,6 +26,7 @@ Use this file to capture key concepts, examples, and takeaways from the course.
 - [Class 5: Compute in Databricks Free Edition](#class-5)
 - [Class 6: DBFS and Modern File Management](#class-6)
 - [Class 7: Transformations and Actions in Spark](#class-7)
+- [Class 8: Understanding RDDs in Spark](#class-8)
 
 <a id="class-1"></a>
 
@@ -890,5 +891,273 @@ These habits can make a huge difference when moving from small exercises to larg
 ### Key takeaway 🌈
 
 Transformations and actions are the core building blocks of Spark processing. Transformations define how data should change, while actions trigger the actual execution. Because Spark uses lazy evaluation, it can optimize the full computation plan before running it. On top of that, understanding the difference between `narrow` and `wide` transformations is essential for performance, since narrow operations keep work local while wide operations often require costly shuffle across the cluster. Mastering these concepts is a major step toward writing efficient Spark applications. 🚀
+
+### Recommended resource 📎
+
+- [Transformations and Actions in Spark](https://keepcoding.io/blog/transformaciones-y-acciones-en-spark/)
+
+[Back to Course Index](#course-index)
+
+<a id="class-8"></a>
+
+## Class 8: Understanding RDDs in Spark 🧱
+
+### What are RDDs in Apache Spark? 🌐
+
+`RDD` stands for `Resilient Distributed Dataset`. It is one of the foundational abstractions in Apache Spark and lives inside `Spark Core`, the engine at the heart of distributed Spark processing.
+
+An RDD can be understood as:
+
+- A distributed collection of data 📦
+- Immutable once created 🔒
+- Processed in parallel across a cluster ⚡
+- Able to recover from failures through lineage 🛡️
+
+RDDs were the first major data abstraction introduced in Spark, and although modern Spark projects often prefer `DataFrames` and `Datasets`, RDDs remain essential for understanding how Spark works under the hood. 🧠
+
+### Why are RDDs important? 🚀
+
+RDDs are important because they explain the core design principles that made Spark so powerful in Big Data environments.
+
+Their main strengths are:
+
+- Immutability 🧱: Once an RDD is created, it cannot be modified directly. Any new change produces a new RDD instead.
+- Distribution 🌍: Data is split into partitions and processed in parallel across multiple cluster nodes.
+- Resilience 🛡️: If one partition is lost, Spark can rebuild it from the lineage of transformations.
+- Parallelism ⚙️: The cluster can process partitions simultaneously, which improves performance for large-scale workloads.
+
+Together, these properties make RDDs reliable, scalable, and well-suited for distributed computing.
+
+### The three key ideas behind the name RDD 🔍
+
+The name itself describes the concept very well:
+
+- `Resilient` means fault-tolerant. Spark can recover lost partitions.
+- `Distributed` means the data is spread across several machines or executors.
+- `Dataset` means Spark is working with a collection of elements that can be transformed and analyzed.
+
+This is why RDDs are often described as the conceptual backbone of Spark. 🌟
+
+### Main characteristics of RDDs 📚
+
+#### Immutability 🔒
+
+RDDs cannot be changed in place. When you apply a transformation, Spark creates a new RDD rather than editing the existing one.
+
+This matters because:
+
+- It protects data integrity ✅
+- It simplifies distributed execution 🧩
+- It helps Spark rebuild data after failures ♻️
+
+#### Partitioning and parallelism ⚡
+
+RDDs are split into partitions. Each partition can be processed independently on a cluster node or executor.
+
+This enables:
+
+- Faster processing of large datasets
+- Better use of cluster resources
+- Parallel execution of transformations
+
+#### Fault tolerance through lineage 🛡️
+
+Spark tracks how an RDD was created. This chain of operations is called `lineage`.
+
+If a partition is lost, Spark can recreate it by replaying the necessary transformations from its parent RDDs. This is one of the core reasons RDDs are resilient.
+
+#### Persistence and caching 📌
+
+RDDs can be persisted in memory or on disk. This is useful when the same dataset is reused multiple times in a workflow.
+
+Benefits include:
+
+- Faster repeated computations 🚀
+- Less recomputation from the source 🔁
+- Better performance for iterative workloads such as machine learning
+
+### How are RDDs created? 🏗️
+
+There are several common ways to create an RDD in Spark:
+
+#### From an in-memory collection 📝
+
+You can build an RDD from a local collection in the driver program using `parallelize`.
+
+Typical example:
+
+```python
+rdd = spark.sparkContext.parallelize([1, 2, 3, 4, 5])
+```
+
+This approach is useful for small examples, experiments, and introductory practice.
+
+#### From external files or datasets 📂
+
+RDDs can also be created from existing data sources, such as:
+
+- Text files
+- CSV-like files
+- HDFS
+- S3
+- Other external storage systems
+
+Typical example:
+
+```python
+rdd = spark.sparkContext.textFile("path/to/file.txt")
+```
+
+This is usually more practical when working with real-world data at scale.
+
+#### From another RDD through transformations 🔄
+
+A new RDD can be derived from an existing one by applying transformations such as:
+
+- `map`
+- `filter`
+- `flatMap`
+- `union`
+- `reduceByKey`
+
+This is how most Spark pipelines evolve step by step.
+
+### What operations can you perform on RDDs? 🛠️
+
+RDDs support two main types of operations:
+
+#### Transformations 🔄
+
+Transformations create a new RDD from an existing one. They are lazy, which means they do not execute immediately.
+
+Common examples:
+
+- `map(func)`
+- `filter(func)`
+- `flatMap(func)`
+- `union()`
+- `reduceByKey(func)`
+
+#### Actions ▶️
+
+Actions trigger execution and return a result or produce an external effect.
+
+Common examples:
+
+- `collect()`
+- `count()`
+- `take(n)`
+- `saveAsTextFile(path)`
+
+This distinction is fundamental in Spark:
+
+- Transformations define the logic
+- Actions execute the plan
+
+### What is the RDD lifecycle? 🔁
+
+A helpful way to think about an RDD is as part of a lifecycle:
+
+1. It is created from data or from another RDD.
+2. It goes through one or more transformations.
+3. Spark builds a lazy execution plan.
+4. An action triggers the actual computation.
+5. The result is returned to the driver or written externally.
+
+This is why multiple actions on the same non-cached RDD may cause Spark to reevaluate the full lineage from the source. That is also why caching can be so valuable. 💡
+
+### What does lazy evaluation mean for RDDs? 😴
+
+RDDs follow Spark's lazy evaluation model. This means Spark does not compute the dataset immediately when you write a transformation.
+
+Instead, it stores the instructions needed to compute the result later. Only when an action is called does Spark execute the necessary steps.
+
+Why this matters:
+
+- Spark can optimize the full workflow first 🔍
+- Unnecessary work can be avoided 🧹
+- Resource usage can be improved 📈
+
+### What are key/value pair RDDs? 🔑
+
+A common type of RDD is the `key/value pair RDD`, where each element is a tuple such as:
+
+`(key, value)`
+
+These RDDs are very useful for grouped and aggregated computations.
+
+Examples of operations commonly used with key/value RDDs include:
+
+- `groupByKey()`
+- `reduceByKey()`
+- `join()`
+
+They are especially important in distributed analytics and aggregation workflows.
+
+### Practical example of an RDD workflow 🧪
+
+Here is a simple example in PySpark:
+
+```python
+from pyspark import SparkContext
+
+sc = SparkContext("local", "RDDExample")
+
+data = [1, 2, 3, 4, 5]
+rdd = sc.parallelize(data)
+
+rdd_filtered = rdd.filter(lambda x: x % 2 == 0)
+rdd_squared = rdd_filtered.map(lambda x: x**2)
+
+result = rdd_squared.collect()
+print(result)  # [4, 16]
+
+sc.stop()
+```
+
+In this flow:
+
+- The RDD is created from a list
+- Two transformations are defined
+- One action executes the plan and returns the result
+
+This small example captures the core Spark mental model very well. ✅
+
+### Benefits of using RDDs 🌈
+
+- Strong fault tolerance through lineage 🛡️
+- Natural support for distributed parallel processing 🌐
+- Flexible low-level control over transformations ⚙️
+- Good fit for custom distributed logic 🧠
+- Useful for learning how Spark works internally 🔍
+
+### Limitations of RDDs ⚠️
+
+Although RDDs are foundational, they also have important limitations compared with newer Spark APIs:
+
+- They usually require more code for common data tasks ✍️
+- They do not benefit as much from automatic optimizations as `DataFrames` and `Datasets`
+- They may be less efficient for many structured-data workloads
+
+So while RDDs are critical for understanding Spark, in modern production work many teams prefer higher-level abstractions when possible.
+
+### Practical advice for using RDDs 🧭
+
+- Use RDDs when you need low-level distributed control
+- Use caching when a dataset will be reused
+- Be aware that multiple actions can trigger multiple evaluations
+- Avoid bringing too much data back to the driver with `collect()`
+- Think carefully about partitioning, shuffle, and lineage
+
+These habits help you use RDDs more efficiently and avoid common performance mistakes.
+
+### Related resources 📎
+
+- [Transformations and Actions in Spark](https://keepcoding.io/blog/transformaciones-y-acciones-en-spark/)
+- [What Are RDDs or Resilient Distributed Datasets?](https://keepcoding.io/blog/rdd-resilient-distributed-datasets/)
+
+### Key takeaway 🌟
+
+RDDs are the original core data abstraction in Apache Spark. They are immutable, distributed, and fault-tolerant collections that can be processed in parallel across a cluster. Their support for lazy evaluation, lineage, partitioning, persistence, transformations, and actions makes them fundamental for understanding how Spark really works. Even though modern APIs like `DataFrames` are often more convenient, learning RDDs gives you a much deeper understanding of Spark execution and distributed data processing. 🚀
 
 [Back to Course Index](#course-index)
