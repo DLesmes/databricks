@@ -19,3 +19,5 @@ Databricks knowledge and course resources.
 9. [Web UI](https://spark.apache.org/docs/latest/web-ui.html)
 10. [Entendiendo la interfaz de usuario de Spark. Web UI Spark I](https://medium.com/iwannabedatadriven/entendiendo-la-interfaz-de-usuario-de-spark-web-ui-spark-i-d03c6bd562a5)
 11. [mvnrepository](https://mvnrepository.com/)
+12. [Google Cloud - Spark con Dataproc - Parte 1](https://youtu.be/UatY8J43iwU?si=WIIEUfbWbxIf-ND7)
+13. [Databrick-cloud integration](https://ar.video.search.yahoo.com/search/video?fr=mcafee&ei=UTF-8&p=spark+local+vs+nube&type=E210AR885G0&guccounter=1#)
