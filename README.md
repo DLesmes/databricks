@@ -16,3 +16,5 @@ Databricks knowledge and course resources.
 6. [Databricks Free Edition Compute Walkthrough](https://www.youtube.com/watch?v=fNQRQkx1SIQ)
 7. [Transformations and Actions in Spark](https://keepcoding.io/blog/transformaciones-y-acciones-en-spark/)
 8. [What Are RDDs or Resilient Distributed Datasets?](https://keepcoding.io/blog/rdd-resilient-distributed-datasets/)
+9. [Web UI](https://spark.apache.org/docs/latest/web-ui.html)
+10. [Entendiendo la interfaz de usuario de Spark. Web UI Spark I](https://medium.com/iwannabedatadriven/entendiendo-la-interfaz-de-usuario-de-spark-web-ui-spark-i-d03c6bd562a5)
