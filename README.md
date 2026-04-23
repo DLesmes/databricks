@@ -25,3 +25,5 @@ Databricks knowledge and course resources.
 15. [¿Qué son las funciones definidas por el usuario (UDF)?](https://learn.microsoft.com/es-es/azure/databricks/udf/)
 16. [What is the Difference Between a Data Lake and a Delta Lake?](https://medium.com/technology-hits/what-is-the-difference-between-a-data-lake-and-a-delta-lake-2ff64d85758b)
 17. [Parquet vs Delta](https://drive.google.com/file/d/1cK1MbwM8eEZScfUWaOKg2LPWlQrRGaLh/view)
+18. [What is the medallion lakehouse architecture?](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
+19. [Arquitectura Medallion](https://drive.google.com/file/d/1CB473K1shy0ulgclYHMi6uGoKJ0x1Pze/view)
