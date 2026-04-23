@@ -23,3 +23,5 @@ Databricks knowledge and course resources.
 13. [Databrick-cloud integration](https://ar.video.search.yahoo.com/search/video?fr=mcafee&ei=UTF-8&p=spark+local+vs+nube&type=E210AR885G0&guccounter=1#)
 14. [Spark SQL, DataFrames and Datasets Guide](https://spark.apache.org/docs/latest/sql-programming-guide.html)
 15. [¿Qué son las funciones definidas por el usuario (UDF)?](https://learn.microsoft.com/es-es/azure/databricks/udf/)
+16. [What is the Difference Between a Data Lake and a Delta Lake?](https://medium.com/technology-hits/what-is-the-difference-between-a-data-lake-and-a-delta-lake-2ff64d85758b)
+17. [Parquet vs Delta](https://drive.google.com/file/d/1cK1MbwM8eEZScfUWaOKg2LPWlQrRGaLh/view)
