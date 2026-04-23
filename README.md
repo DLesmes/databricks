@@ -21,3 +21,4 @@ Databricks knowledge and course resources.
 11. [mvnrepository](https://mvnrepository.com/)
 12. [Google Cloud - Spark con Dataproc - Parte 1](https://youtu.be/UatY8J43iwU?si=WIIEUfbWbxIf-ND7)
 13. [Databrick-cloud integration](https://ar.video.search.yahoo.com/search/video?fr=mcafee&ei=UTF-8&p=spark+local+vs+nube&type=E210AR885G0&guccounter=1#)
+14. [Spark SQL, DataFrames and Datasets Guide](https://spark.apache.org/docs/latest/sql-programming-guide.html)
