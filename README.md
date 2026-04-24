@@ -27,3 +27,4 @@ Databricks knowledge and course resources.
 17. [Parquet vs Delta](https://drive.google.com/file/d/1cK1MbwM8eEZScfUWaOKg2LPWlQrRGaLh/view)
 18. [What is the medallion lakehouse architecture?](https://learn.microsoft.com/en-us/azure/databricks/lakehouse/medallion)
 19. [Arquitectura Medallion](https://drive.google.com/file/d/1CB473K1shy0ulgclYHMi6uGoKJ0x1Pze/view)
+20. [Databricks Utilities](https://docs.databricks.com/aws/en/dev-tools/databricks-utils)
